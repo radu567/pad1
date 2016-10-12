@@ -17,6 +17,4 @@ while True:
     data = str.encode(data)
     s.send(data)
 
-tm = s.recv(1024)
-
 s.close()
