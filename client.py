@@ -20,5 +20,3 @@ while True:
 tm = s.recv(1024)
 
 s.close()
-
-print("The time got from the server is %s" % tm.decode('ascii'))
