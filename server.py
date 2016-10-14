@@ -15,8 +15,17 @@ class ClientThread(threading.Thread):
 #        clientsock.send("\nWelcome to the server\n\n")
 
         data = clientsock.recv(1024)
+        list1 = []
+        i = 1
+
         while data:  # Atit timp cit sunt date
             print(data)  # Le afisam
+            list1[i].append(data)
+
+            if data:
+                i += 1
+                clientsock.send(list1)
+                clientsock.close()
             data = clientsock.recv(1024)  # Citim urmatoarele 1024 bytes de la client
         clientsock.close()  # Inchidem conexiunea
 
@@ -30,6 +39,7 @@ tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 tcpsock.bind((host, port))
 threads = []
+
 
 
 while True:
