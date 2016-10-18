@@ -1,21 +1,22 @@
-# client.py
 import socket
-
+import json
 # create a socket object
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-host = 'localhost'
+host = '127.0.0.1'
 port = 9999
 s.connect((host, port))
 
+
 while True:
+    data = {
+        'type': 'read',
+        'message': ''
+    }
+    jsonObj = json.dumps(data).encode('utf-8')
+    s.send(jsonObj)
+    dataJson = json.loads(s.recv(1024).decode('utf-8'))
+    message = dataJson.get('message')
+    print(message)
 
-    data = data = s.recv(1024)
-    # if not data:
-    #     s.close()
-
-    data = str.decode(data)
-    print(data)
-
-
-s.close()
+# s.close()
