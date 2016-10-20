@@ -22,19 +22,19 @@ class ClientThread(threading.Thread):
 
 #        clientsock.send("\nWelcome to the server\n\n")
 
-        jsonObj = self.clientsock.recv(1024)
-        while True:
-            data = json.loads(jsonObj.decode('utf-8'))
+        data = self.clientsock.recv(1024)
+        while data:
+            data = json.loads(data.decode('utf-8'))
             type = data.get('type')
 
             if type == MESSAGE_TYPE.read:
                 if q:
                     m = q.get()
                     # print(m)   # comentat de radu
-                    tcpsock.send(m.encode("utf-8"))
+                    self.clientsock.send(m.encode("utf-8"))
                     # tcpsock.send(m.str.encode())
                 else:
-                    tcpsock.send('Queue is empty')
+                    self.clientsock.send('Queue is empty')
             elif type == MESSAGE_TYPE.send:
                 message = data.get('message')
                 print('Mesaj:', message)
