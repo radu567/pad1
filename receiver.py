@@ -15,8 +15,7 @@ while True:
     }
     jsonObj = json.dumps(data).encode('utf-8')
     s.send(jsonObj)
-    dataJson = json.loads(s.recv(1024).decode('utf-8'))
-    message = dataJson.get('message')
+    message = s.recv(1024).decode('utf-8')
     print(message)
 
 # s.close()
